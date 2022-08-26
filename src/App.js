@@ -1,13 +1,14 @@
 import React,{useState} from 'react';
 import styled, {ThemeProvider} from 'styled-components/native';
 import theme from './theme';
-import { StatusBar } from 'react-native';
+import { StatusBar, Alert } from 'react-native';
 import Input from './components/Input';
 import Task from './components/Task';
 import {Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppLoading from 'expo-app-loading';
-
+import LineButton from './components/LineButton';
+import { object } from 'prop-types';
 
 const Container = styled.View`
   flex:1;
@@ -91,6 +92,7 @@ export default function App() {
     };
     setNewTask('');
     storeData('tasks', {...tasks, ...newTaskObject}); 
+    
   }
 
   //삭제
@@ -117,6 +119,35 @@ export default function App() {
   const _onBlur = () => {
     setNewTask('');
   }
+
+
+  //완료 삭제
+  const _delAllTask =()=>{
+
+    const deleteCompletedItems = ()=>{
+      const currentTasks = {...tasks};
+      const filteredTasks =
+      Object.fromEntries
+      (Object.entries(currentTasks)
+            .filter(task=>task[1].completed==false));
+        storeData('task', filteredTasks);
+    }
+
+    Alert.alert(
+      "삭제", //경고창 제목
+      "완료 항목 전체를 삭제하시겠습니까?", //경고창 메세지
+      [
+        {
+          text: "예",
+          onPress: () => deleteCompletedItems(),
+
+        },
+        { text: "아니오", onPress: () => {}   }
+      ]
+    );
+
+  }
+
 
   return !isReady ? (
     <AppLoading
@@ -147,7 +178,11 @@ export default function App() {
                                   updateTask={_updateTask}
                             />)
           }
+
         </List>
+        <LineButton 
+          text="완료항목 전체 삭제"
+          onPressOut={_delAllTask}/>
         </Container>
     </ThemeProvider>
   );

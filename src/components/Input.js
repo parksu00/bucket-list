@@ -41,7 +41,7 @@ Input.defaultProps = {
     value:'기본값'
   }
 
-Input.propTotype = {
+Input.propTypes = {
     placeholder:PropTypes.string.isRequired,
     value:PropTypes.string,
     onChangeText:PropTypes.func.isRequired,
