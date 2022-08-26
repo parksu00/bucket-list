@@ -121,26 +121,27 @@ export default function App() {
   }
 
 
-  //완료 삭제
-  const _delAllTask =()=>{
+   //완료항목 전체 삭제
+   const _delAllTask =()=>{
+
 
     const currentTasks = {...tasks};
+    const completedTasks = 
+    Object.entries(currentTasks)
+    .filter(task=>task[1].completed==true);
     
-    const completedTasks =
-    Object.fromEntries
-      (Object.entries(currentTasks)
-            .filter(task=>task[1].completed==true));
 
-    //완료항목이 없는 경우 확인창 띄우지 않음
-    if(completedTasks.length < 1 ) return;
+    //완료 항목이 없는경우 확인창 띄우지 않음.
+    if(completedTasks.length<1) return;
 
     const deleteCompletedItems = ()=>{
+      //미완료항목
       const filteredTasks =
-      Object.fromEntries
-      (Object.entries(currentTasks)
-            .filter(task=>task[1].completed==false));
-        storeData('task', filteredTasks);
+        Object.fromEntries(Object.entries(currentTasks)
+                                 .filter(task=>task[1].completed==false));
+      storeData('task', filteredTasks);
     }
+
 
     Alert.alert(
       "삭제", //경고창 제목
