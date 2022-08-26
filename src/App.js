@@ -92,7 +92,7 @@ export default function App() {
     };
     setNewTask('');
     storeData('tasks', {...tasks, ...newTaskObject}); 
-    
+
   }
 
   //삭제
@@ -124,8 +124,17 @@ export default function App() {
   //완료 삭제
   const _delAllTask =()=>{
 
+    const currentTasks = {...tasks};
+    
+    const completedTasks =
+    Object.fromEntries
+      (Object.entries(currentTasks)
+            .filter(task=>task[1].completed==true));
+
+    //완료항목이 없는 경우 확인창 띄우지 않음
+    if(completedTasks.length < 1 ) return;
+
     const deleteCompletedItems = ()=>{
-      const currentTasks = {...tasks};
       const filteredTasks =
       Object.fromEntries
       (Object.entries(currentTasks)
