@@ -5,7 +5,7 @@ import PropsTypes from 'prop-types';
 
 const StyledTouchableOpacity = styled.TouchableOpacity`
     background-color: lightgreen;
-    width:100%;
+    width:150%;
     align-items:center;
 `;
 
