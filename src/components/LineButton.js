@@ -4,7 +4,11 @@ import PropsTypes from 'prop-types';
 
 
 const StyledTouchableOpacity = styled.TouchableOpacity`
+<<<<<<< HEAD
     background-color: lightgreen;
+=======
+    background-color: orange;
+>>>>>>> 1b4f137901a071f4a828ff51852123f88b4eee5a
     width:100%;
     align-items:center;
 `;
